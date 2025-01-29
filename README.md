@@ -1,6 +1,19 @@
 # <div align = center>gSpan</div>
+## Implementation von gSpan für EEGL für Graph Klassifikation
 
-##### For Chinese readme, please go to [README-Chinese](https://github.com/betterenvi/gSpan/blob/master/README-Chinese.md). 
+Ausführung: 'python -m gspan_mining {options} database_file_name'
+**Options**
+- `-s min_support`: Minimum support for frequent subgraphs.
+- `-n num_graph`: Number of graphs to process.
+- `-l min_num_vertices`: Minimum number of vertices in subgraphs.
+- `-u max_num_vertices`: Maximum number of vertices in subgraphs.
+- `-d True/False`: Whether to mine directed subgraphs (`True`) or undirected subgraphs (`False`).
+- `-p True/False`: Whether to visualize the subgraphs (requires `matplotlib` and `networkx`).
+- `-v True/False`: Whether to output subgraph structures.
+
+Zum Beispiel, was funktioniert: python -m gspan_mining ./graphdata/graph.data -p True
+
+Run `python -m gspan_mining -h` for a full list of options.
 
 **gSpan** is an algorithm for mining frequent subgraphs.
 
