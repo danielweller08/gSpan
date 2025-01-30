@@ -211,6 +211,9 @@ class gSpan(object):
         self._visualize = visualize
         self._where = where
         self.timestamps = dict()
+
+        self._graph = Graph(is_undirected=self._is_undirected)
+
         if self._max_num_vertices < self._min_num_vertices:
             print('Max number of vertices can not be smaller than '
                   'min number of that.\n'
@@ -333,16 +336,16 @@ class gSpan(object):
         print('\nSupport: {}'.format(self._support))
 
         # Add some report info to pandas dataframe "self._report_df".
-        self._report_df = self._report_df.append(
-            pd.DataFrame(
-                {
-                    'support': [self._support],
-                    'description': [display_str],
-                    'num_vert': self._DFScode.get_num_vertices()
-                },
-                index=[int(repr(self._counter)[6:-1])]
-            )
+        if not hasattr(self, '_report_rows'):
+            self._report_rows = []
+
+        self._report_rows.append(
+            {
+                'support': self._support,
+                'description': str(self._graph),
+            }
         )
+
         if self._visualize:
             g.plot()
         if self._where:
