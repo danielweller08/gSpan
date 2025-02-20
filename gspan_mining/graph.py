@@ -128,6 +128,9 @@ class Graph(object):
         return display_str
 
     def plot(self):
+        
+        print("hello world!")
+        
         """Visualize the graph."""
         try:
             import networkx as nx
