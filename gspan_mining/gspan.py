@@ -191,7 +191,8 @@ class gSpan(object):
                  is_undirected=True,
                  verbose=False,
                  visualize=False,
-                 where=False):
+                 where=False,
+                 output_path=None):
         """Initialize gSpan instance."""
         self._database_file_name = database_file_name
         self.graphs = dict()
@@ -211,6 +212,7 @@ class gSpan(object):
         self._visualize = visualize
         self._where = where
         self.timestamps = dict()
+        self.output_path = output_path
 
         self._graph = Graph(is_undirected=self._is_undirected)
 
@@ -347,7 +349,8 @@ class gSpan(object):
         )
 
         if self._visualize:
-            g.plot()
+            g.plot(self.output_path)
+        
         if self._where:
             print('where: {}'.format(list(set([p.gid for p in projected]))))
         print('\n-----------------\n')
