@@ -5,6 +5,9 @@ from __future__ import print_function
 
 import collections
 import itertools
+import os
+
+from explanations import get_node_colors, save_graph_to_file
 
 
 VACANT_EDGE_ID = -1
@@ -127,7 +130,7 @@ class Graph(object):
                     display_str += 'e {} {} {}'.format(frm, to, edges[to].elb)
         return display_str
 
-    def plot(self, output_path):
+    def plot(self, output_path, plot_fs):
         """Visualize the graph."""
         try:
             import networkx as nx
@@ -151,21 +154,22 @@ class Graph(object):
                     elbs[(vid, to)] = e.elb
         # fsize = (min(16, 1 * len(self.vertices)),
         #          min(16, 1 * len(self.vertices)))
-        fsize = (12, 6)
-        plt.figure(3, figsize=fsize)
-        pos = nx.kamada_kawai_layout(gnx)
+        if plot_fs:
+            fsize = (12, 6)
+            plt.figure(3, figsize=fsize)
+            pos = nx.kamada_kawai_layout(gnx)
 
-        # assign node colors
-        from explanations import get_node_colors, save_graph_to_file
-        node_colors = get_node_colors(gnx)
-        
-        nx.draw_networkx(gnx, pos, arrows=True, with_labels=True, labels=vlbs, node_color=node_colors)
-        # nx.draw_networkx_edge_labels(gnx, pos, edge_labels=elbs)
+            # assign node colors
+            node_colors = get_node_colors(gnx)
+            
+            nx.draw_networkx(gnx, pos, arrows=True, with_labels=True, labels=vlbs, node_color=node_colors)
+            # nx.draw_networkx_edge_labels(gnx, pos, edge_labels=elbs)
 
-        import os
-        os.makedirs(os.path.join(output_path, "plots"), exist_ok=True)
-        plot_path = os.path.join(output_path, f"plots/graph_{self.gid}.png")
-        plt.savefig(plot_path)
-        plt.close()
+            os.makedirs(os.path.join(output_path, "plots"), exist_ok=True)
+            plot_path = os.path.join(output_path, f"plots/graph_{self.gid}.png")
+            plt.savefig(plot_path)
+            plt.close()
+
+
         data_file_path = os.path.join(output_path, "graphs.fsm.data")
         save_graph_to_file(graph=gnx, file_path=data_file_path, graph_id=self.gid)
