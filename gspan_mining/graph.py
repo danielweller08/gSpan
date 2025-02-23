@@ -161,13 +161,11 @@ class Graph(object):
         
         nx.draw_networkx(gnx, pos, arrows=True, with_labels=True, labels=vlbs, node_color=node_colors)
         # nx.draw_networkx_edge_labels(gnx, pos, edge_labels=elbs)
-        
+
         import os
         os.makedirs(os.path.join(output_path, "plots"), exist_ok=True)
         plot_path = os.path.join(output_path, f"plots/graph_{self.gid}.png")
         plt.savefig(plot_path)
         plt.close()
-        
         data_file_path = os.path.join(output_path, "graphs.fsm.data")
-        
         save_graph_to_file(graph=gnx, file_path=data_file_path, graph_id=self.gid)

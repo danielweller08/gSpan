@@ -215,6 +215,13 @@ class gSpan(object):
         self.output_path = output_path
 
         self._graph = Graph(is_undirected=self._is_undirected)
+        
+        if self.output_path is not None:
+            import os
+            os.makedirs(self.output_path, exist_ok=True)
+            data_file_path = os.path.join(output_path, "graphs.fsm.data")
+            if os.path.exists(data_file_path):
+                os.remove(data_file_path)
 
         if self._max_num_vertices < self._min_num_vertices:
             print('Max number of vertices can not be smaller than '
