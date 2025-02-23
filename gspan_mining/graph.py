@@ -130,7 +130,7 @@ class Graph(object):
                     display_str += 'e {} {} {}'.format(frm, to, edges[to].elb)
         return display_str
 
-    def plot(self, output_path, plot_fs):
+    def plot(self, output_path, plot_fs, class_label):
         """Visualize the graph."""
         try:
             import networkx as nx
@@ -165,11 +165,11 @@ class Graph(object):
             nx.draw_networkx(gnx, pos, arrows=True, with_labels=True, labels=vlbs, node_color=node_colors)
             # nx.draw_networkx_edge_labels(gnx, pos, edge_labels=elbs)
 
-            os.makedirs(os.path.join(output_path, "plots"), exist_ok=True)
-            plot_path = os.path.join(output_path, f"plots/graph_{self.gid}.png")
+            os.makedirs(os.path.join(output_path, f"plots_{class_label}"), exist_ok=True)
+            plot_path = os.path.join(output_path, f"plots_{class_label}/graph_{self.gid}.png")
             plt.savefig(plot_path)
             plt.close()
 
 
-        data_file_path = os.path.join(output_path, "graphs.fsm.data")
+        data_file_path = os.path.join(output_path, f"graphs.fsm.data.{class_label}")
         save_graph_to_file(graph=gnx, file_path=data_file_path, graph_id=self.gid)

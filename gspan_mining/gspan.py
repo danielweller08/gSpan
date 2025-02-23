@@ -195,6 +195,7 @@ class gSpan(object):
                  visualize=False,
                  where=False,
                  output_path=None,
+                 class_label="",
                  plot_fs=False):
         """Initialize gSpan instance."""
         self._database_file_name = database_file_name
@@ -216,16 +217,17 @@ class gSpan(object):
         self._where = where
         self.timestamps = dict()
         self.output_path = output_path
+        self.class_label = class_label
         self.plot_fs = plot_fs
 
         self._graph = Graph(is_undirected=self._is_undirected)
         
         if self.output_path is not None:
             os.makedirs(self.output_path, exist_ok=True)
-            data_file_path = os.path.join(output_path, "graphs.fsm.data")
+            data_file_path = os.path.join(self.output_path, f"graphs.fsm.data.{self.class_label}")
             if os.path.exists(data_file_path):
                 os.remove(data_file_path)
-            plot_path = os.path.join(output_path, "plots")
+            plot_path = os.path.join(self.output_path, "plots")
             if os.path.exists(plot_path):
                 shutil.rmtree(plot_path)
                 os.makedirs(plot_path)
@@ -363,7 +365,7 @@ class gSpan(object):
         )
 
         if self._visualize:
-            g.plot(self.output_path, self.plot_fs)
+            g.plot(self.output_path, self.plot_fs, self.class_label)
         
         if self._where:
             print('where: {}'.format(list(set([p.gid for p in projected]))))
