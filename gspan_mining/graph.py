@@ -161,7 +161,6 @@ class Graph(object):
 
             # assign node colors
             node_colors = get_node_colors(gnx)
-            
             nx.draw_networkx(gnx, pos, arrows=True, with_labels=True, labels=vlbs, node_color=node_colors)
             # nx.draw_networkx_edge_labels(gnx, pos, edge_labels=elbs)
 
