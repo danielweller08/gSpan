@@ -170,5 +170,5 @@ class Graph(object):
             plt.close()
 
 
-        data_file_path = os.path.join(output_path, f"graphs.fsm.data.{class_label}")
+        data_file_path = os.path.join(output_path, f"fsm.{class_label}")
         save_graph_to_file(graph=gnx, file_path=data_file_path, graph_id=self.gid)

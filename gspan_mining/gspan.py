@@ -224,7 +224,7 @@ class gSpan(object):
         
         if self.output_path is not None:
             os.makedirs(self.output_path, exist_ok=True)
-            data_file_path = os.path.join(self.output_path, f"graphs.fsm.data.{self.class_label}")
+            data_file_path = os.path.join(self.output_path, f"fsm.{self.class_label}")
             if os.path.exists(data_file_path):
                 os.remove(data_file_path)
             plot_path = os.path.join(self.output_path, "plots")
