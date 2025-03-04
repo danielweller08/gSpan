@@ -7,7 +7,7 @@ import collections
 import itertools
 import os
 
-from explanations import get_node_colors, save_graph_to_file
+from utils.utils import get_node_colors, save_graph_to_file
 
 
 VACANT_EDGE_ID = -1
@@ -162,13 +162,11 @@ class Graph(object):
             # assign node colors
             node_colors = get_node_colors(gnx)
             nx.draw_networkx(gnx, pos, arrows=True, with_labels=True, labels=vlbs, node_color=node_colors)
-            # nx.draw_networkx_edge_labels(gnx, pos, edge_labels=elbs)
 
             os.makedirs(os.path.join(output_path, f"plots_{class_label}"), exist_ok=True)
             plot_path = os.path.join(output_path, f"plots_{class_label}/graph_{self.gid}.png")
             plt.savefig(plot_path)
             plt.close()
-
 
         data_file_path = os.path.join(output_path, f"fsm.{class_label}")
         save_graph_to_file(graph=gnx, file_path=data_file_path, graph_id=self.gid)
